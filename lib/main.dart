@@ -11,7 +11,11 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark().copyWith(
+        textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Nunito'),
+        primaryTextTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Nunito'),
+        accentTextTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Nunito'),
+      ),
       home: ExploreScreen(),
     );
   }
