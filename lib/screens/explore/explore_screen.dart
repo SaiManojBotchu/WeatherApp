@@ -156,12 +156,12 @@ class ExploreScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 120.0),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                width: double.infinity,
-                height: 120.0,
-                color: Colors.white,
-              ),
+              // Container(
+              //   margin: const EdgeInsets.symmetric(horizontal: 20.0),
+              //   width: double.infinity,
+              //   height: 120.0,
+              //   color: Colors.white,
+              // ),
               Column(
                 children: [
                   Container(
