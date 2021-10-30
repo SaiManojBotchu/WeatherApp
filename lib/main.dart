@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/screens/explore/explore_screen.dart';
+// import 'package:weather_app/screens/explore/explore_screen.dart';
+import 'package:weather_app/screens/forecast/forecast_screen.dart';
 // import 'screens/home/home_screen.dart';
 
 void main() {
@@ -16,7 +17,8 @@ class WeatherApp extends StatelessWidget {
         primaryTextTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Nunito'),
         accentTextTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Nunito'),
       ),
-      home: ExploreScreen(),
+      // home: ExploreScreen(),
+      home: ForecastScreen(),
     );
   }
 }

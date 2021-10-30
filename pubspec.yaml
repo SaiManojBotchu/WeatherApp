@@ -12,6 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.3
+  http: ^0.13.3
+  figma_squircle: ^0.5.3
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

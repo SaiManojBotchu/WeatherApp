@@ -1,109 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants/colors.dart';
+import 'package:weather_app/models/weather.dart';
+import 'package:weather_app/widgets/city_data.dart';
+import 'package:weather_app/widgets/city_temp.dart';
+import 'package:weather_app/widgets/weather_image.dart';
 
-final gradient = LinearGradient(
-  begin: Alignment.topCenter,
-  end: Alignment.bottomCenter,
-  colors: [
-    Colors.white.withOpacity(0.9),
-    Colors.white.withOpacity(0.85),
-    Colors.white.withOpacity(0.45),
-    Colors.white.withOpacity(0.1),
-  ],
-);
+class ExploreScreen extends StatefulWidget {
+  @override
+  _ExploreScreenState createState() => _ExploreScreenState();
+}
 
-class ExploreScreen extends StatelessWidget {
-  const ExploreScreen({Key? key}) : super(key: key);
+class _ExploreScreenState extends State<ExploreScreen> {
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() async {
+    await Weather.getCityWeather();
+    setState(() => Weather.updateWeatherData());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              MyColors.backgroundColor1,
-              MyColors.backgroundColor2,
-              MyColors.backgroundColor3,
-            ],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            stops: [0.0, 0.55, 0.8],
-            tileMode: TileMode.repeated,
-          ),
-        ),
+        decoration: BoxDecoration(gradient: MyColors.backgroundGradient),
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                children: [
-                  SizedBox(height: 30.0),
-                  Text(
-                    'Los Angeles',
-                    style: TextStyle(
-                      fontSize: 38.0,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Chance of Rain: 3%',
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.8),
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
+              CityDataWidget(desc: Weather.desc),
               Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(width: 40.0),
-                      ShaderMask(
-                        shaderCallback: (Rect bounds) {
-                          return gradient.createShader(Offset.zero & bounds.size);
-                        },
-                        child: Text(
-                          '23',
-                          style: TextStyle(
-                            fontSize: 175.0,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                      ),
-                      ShaderMask(
-                        shaderCallback: (Rect bounds) {
-                          return gradient.createShader(Offset(0, -45) & bounds.size);
-                        },
-                        child: Transform.translate(
-                          offset: const Offset(0, -40),
-                          child: Text(
-                            '\u00B0',
-                            style: TextStyle(
-                              fontSize: 140.0,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                  CityTempWidget(size1: 175.0, size2: 140.0, offset: 45),
                   Positioned(
                     bottom: -125,
                     right: 90,
-                    child: Container(
-                      width: 220.0,
-                      height: 220.0,
-                      child: Image.asset(
-                        'assets/images/17.png',
-                      ),
-                    ),
+                    child: WeatherImageWidget(size: 220.0),
                   ),
                   Positioned(
                     bottom: -120,
@@ -120,10 +57,10 @@ class ExploreScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 5.0),
                         Text(
-                          '6 km/h',
+                          '${Weather.windSpeed} km/h',
                           style: TextStyle(
                             fontSize: 20.0,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
@@ -144,10 +81,10 @@ class ExploreScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 5.0),
                         Text(
-                          '78%',
+                          '${Weather.humidity}%',
                           style: TextStyle(
                             fontSize: 20.0,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
@@ -185,7 +122,7 @@ class ExploreScreen extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 14.0,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                           Image.asset(
